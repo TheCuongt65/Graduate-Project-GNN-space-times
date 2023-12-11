@@ -1,6 +1,5 @@
 
 
-
 city_fp = "D:\Graph by TCuong\PM2.5-GNN\data\city.txt"
 altitude_fp = "D:\Graph by TCuong\PM2.5-GNN\data/altitude.npy"
 
