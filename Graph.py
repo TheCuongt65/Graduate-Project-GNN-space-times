@@ -1,4 +1,20 @@
-
+import numpy as np
+import torch
+import os
+#Chuyển đổi ma trận dày đặc thành dạng thưa, và chuyển đổi ma trận kề thành dày đặc
+from torch_geometric.utils import dense_to_sparse, to_dense_adj
+#Đối tượng Dict có thể sắp xếp
+from collections import OrderedDict
+#Tính toán khoảng cách
+from scipy.spatial import distance
+#Tính khoảng cách địa đạo giữa hai điểm trên trái đất
+from geopy.distance import geodesic
+#Gán, chuyển đổi đơn vị đo lường
+from metpy.units import units
+#Các phương thức, công cụ để thực hiện các phép tính liên quan đến khí tượng
+import metpy.calc as mpcalc
+#cấp một triển khai đơn giản của thuật toán vẽ đường thẳng Bresenham
+from bresenham import bresenham
 
 city_fp = "D:\Graph by TCuong\PM2.5-GNN\data\city.txt"
 altitude_fp = "D:\Graph by TCuong\PM2.5-GNN\data/altitude.npy"
@@ -147,3 +163,13 @@ class Graph():
 
         self.edge_index = np.stack(edge_index, axis=1)
         self.edge_attr = np.stack(edge_attr, axis=0)
+
+if __name__ == '__main__':
+    obj1 = Graph()
+    print("Node: ", obj1.nodes)
+    print("Node num: ", obj1.node_num)
+    print("Node attr (độ cao): ", obj1.node_attr)
+
+    print("Edge index: ", obj1.edge_index)
+    print("Edge num: ", obj1.edge_num)
+    print("Edge attr(dist & direc): ", obj1.edge_attr)
