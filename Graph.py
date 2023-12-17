@@ -24,7 +24,7 @@ class Graph():
     def __init__(self):
         self.dist_thres = 3
         self.alti_thres = 1200
-        self.use_altitude = True
+        self.use_altitude = False
 
         self.altitude = self._load_altitude()
         self.nodes = self._gen_nodes()
@@ -168,7 +168,7 @@ if __name__ == '__main__':
     obj1 = Graph()
     print("Node: ", obj1.nodes)
     print("Node num: ", obj1.node_num)
-    print("Node attr (độ cao): ", obj1.node_attr)
+    # print("Node attr (độ cao): ", obj1.node_attr)
 
     print("Edge index: ", obj1.edge_index)
     print("Edge num: ", obj1.edge_num)
