@@ -10,6 +10,9 @@ import metpy.calc as mpcalc
 #Định dạng ngày tháng
 from datetime import datetime
 
+from util import config
+
+
 class HazeData(data.Dataset):
 
     def __init__(self, graph, hist_len=1, pred_len=24, dataset_num=1, flag='Train',):
@@ -26,10 +29,13 @@ class HazeData(data.Dataset):
         else:
             raise Exception('Wrong Flag!')
 
-        self.start_time = self._get_time([[2015, 1, 1], 'GMT']) #self._get_time(config['dataset'][dataset_num][start_time_str])
-        self.end_time = self._get_time([[2016, 12, 31], 'GMT']) #self._get_time(config['dataset'][dataset_num][end_time_str])
-        self.data_start = self._get_time([[2015, 1, 1, 0, 0], 'GMT']) #self._get_time(config['dataset']['data_start'])
-        self.data_end = self._get_time([[2018, 12, 31, 21, 0], 'GMT']) #self._get_time(config['dataset']['data_end'])
+        # Thời gian bắt đầu và kết thúc
+        self.start_time = self._get_time(config['dataset'][dataset_num][start_time_str])
+        self.end_time = self._get_time(config['dataset'][dataset_num][end_time_str])
+
+        # Lấy Thông tin về thời gian của tập dữ liệu
+        self.data_start = self._get_time(config['dataset']['data_start'])
+        self.data_end = self._get_time(config['dataset']['data_end'])
 
         self.knowair_fp = "data/KnowAir.npy" # file_dir['knowair_fp']
 
@@ -74,33 +80,8 @@ class HazeData(data.Dataset):
         self.pm25_std = self.pm25.std()
 
     def _process_feature(self):
-        metero_var =['100m_u_component_of_wind',
-                     '100m_v_component_of_wind',
-                     '2m_dewpoint_temperature',
-                     '2m_temperature',
-                     'boundary_layer_height',
-                     'k_index',
-                     'relative_humidity+950',
-                     'relative_humidity+975',
-                     'specific_humidity+950',
-                     'surface_pressure',
-                     'temperature+925',
-                     'temperature+950',
-                     'total_precipitation',
-                     'u_component_of_wind+950',
-                     'v_component_of_wind+950',
-                     'vertical_velocity+950',
-                     'vorticity+950'] #config['data']['metero_var']
-
-        metero_use =  ['2m_temperature',
-                       'boundary_layer_height',  # Comment out for no_BPL experiments.
-                       'k_index',
-                       'relative_humidity+950',
-                       'surface_pressure',
-                       'total_precipitation',
-                       'u_component_of_wind+950',
-                       'v_component_of_wind+950',]#config['experiments']['metero_use']
-
+        metero_var = config['data']['metero_var']
+        metero_use = config['experiments']['metero_use']
         metero_idx = [metero_var.index(var) for var in metero_use]
         self.feature = self.feature[:,:,metero_idx]
 
