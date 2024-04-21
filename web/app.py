@@ -61,7 +61,7 @@ def app():
     st.title('Heatmap of Hanoi')
     while True:
         print("Update !!!")
-        # Update data
+        # Update data_web
         hanoi_df['PM2.5'] = np.random.uniform(0, 50, 184)
         hanoi_df['BaoDong'] = np.random.choice([0, 1], 184)
 

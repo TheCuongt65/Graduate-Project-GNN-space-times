@@ -52,10 +52,10 @@ app.layout = html.Div([
               Input('update-button', 'n_clicks'))
 def update_map(n):
     if n is None:
-        # Don't update the data if the button hasn't been clicked
+        # Don't update the data_web if the button hasn't been clicked
         raise dash.exceptions.PreventUpdate
 
-    # Update data
+    # Update data_web
     hanoi_df['PM2.5'] = np.random.uniform(0, 50, 184)
     hanoi_df['BaoDong'] = np.random.choice([0, 1], 184)
 

@@ -40,7 +40,7 @@ class HazeData(data.Dataset):
         self.data_start = self._get_time(config['dataset']['data_start'])
         self.data_end = self._get_time(config['dataset']['data_end'])
 
-        self.knowair_fp = "../data/KnowAir.npy" # file_dir['knowair_fp']
+        self.knowair_fp = "../data_web/KnowAir.npy" # file_dir['knowair_fp']
 
         self.graph = graph
 
@@ -83,7 +83,7 @@ class HazeData(data.Dataset):
         self.pm25_std = self.pm25.std()
 
     def _process_feature(self):
-        metero_var = config['data']['metero_var']
+        metero_var = config['data_web']['metero_var']
         metero_use = config['experiments']['metero_use']
         metero_idx = [metero_var.index(var) for var in metero_use]
         self.feature = self.feature[:,:,metero_idx]

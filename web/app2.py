@@ -12,7 +12,7 @@ np.random.seed(42)
 n_points = 184
 
 ############
-predict_result = np.load('./data/predict.npy')
+predict_result = np.load('data_web/predict.npy')
 predict_result = predict_result.reshape(2880, 25, 184)
 json_data = get_json_data()
 
@@ -31,7 +31,7 @@ print("Load xong Thông tin về trạm")
 
 ############
 
-label = np.load('./data/label.npy')
+label = np.load('data_web/label.npy')
 label = label.reshape(2880, 25, 184)
 json_data = get_json_data()
 
