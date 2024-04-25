@@ -1,94 +1,100 @@
 import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
-import folium
+import plotly.express as px
 import streamlit as st
-from streamlit_folium import folium_static
-from util import get_index_pairs, get_json_data
+from util import get_index_pairs, get_json_data, smaller_than
 import time
+
+#2018
 
 np.random.seed(42)
 n_points = 184
-start_time = datetime.now() - timedelta(hours=n_points)
 
+############
+predict_result = np.load('data_web/predict.npy')
+predict_result = predict_result.reshape(2880, 25, 184)
 json_data = get_json_data()
 
 hanoi_data = {
-    # 'Time': [start_time + timedelta(hours=i) for i in range(n_points)] * 10,
     'Index': [item['Index'] for item in json_data],
     'Tram': [item['Tram'] for item in json_data],
     'Latitude': [float(item['Latitude']) for item in json_data],
     'Longitude': [float(item['Longitude']) for item in json_data],
-    'PM2.5': np.random.uniform(0, 50, 184),
-    'BaoDong': np.random.choice([0, 0], 184)
+    'PM2.5': predict_result[0, 0],
+    'BaoDong': smaller_than(predict_result[0, 0] / 75)
 }
 
 hanoi_df = pd.DataFrame(hanoi_data)
 
 print("Load xong Thông tin về trạm")
 
+############
+
+label = np.load('data_web/label.npy')
+label = label.reshape(2880, 25, 184)
+json_data = get_json_data()
+
+hanoi_data_label = {
+    'Index': [item['Index'] for item in json_data],
+    'Tram': [item['Tram'] for item in json_data],
+    'Latitude': [float(item['Latitude']) for item in json_data],
+    'Longitude': [float(item['Longitude']) for item in json_data],
+    'PM2.5': label[0, 0],
+    'BaoDong': smaller_than(label[0, 0] / 75)
+}
+
+hanoi_label_df = pd.DataFrame(hanoi_data_label)
+
+print("Load xong Thông tin về trạm label")
+
+###############################
+
 def create_map(df):
-    # Tạo bản đồ với vị trí trung bình của Hà Nội
-    map_center = [hanoi_df['Latitude'].mean(), hanoi_df['Longitude'].mean()]
-    my_map = folium.Map(location=map_center, zoom_start=10)
+    # Create a scatter mapbox with plotly
+    fig = px.scatter_mapbox(df, lat="Latitude", lon="Longitude", color="BaoDong", size="PM2.5",
+                            color_continuous_scale=px.colors.sequential.Plasma[::-1], size_max=20, zoom=4.7,
+                            mapbox_style="carto-positron")
 
-    # Thêm marker cho từng trạm
-    for index, row in hanoi_df.iterrows():
-        # Tùy chỉnh màu sắc dựa trên thông báo báo động
-        color = 'red' if row['BaoDong'] == 1 else 'green'
-        folium.Marker(
-            location=[row['Latitude'], row['Longitude']],
-            popup=f"{row['Tram']} - PM2.5: {row['PM2.5']:.2f} µg/m³",
-            icon=folium.Icon(color=color, icon='info-sign')
-        ).add_to(my_map)
-
-    # Danh sách các cặp trạm cần nối
-    pairs = sorted(list(get_index_pairs()))
-
-    # Thêm đường nối giữa các cặp trạm
-    for pair in pairs:
-        tram1 = hanoi_df[hanoi_df['Index'] == str(pair[0])].iloc[0]
-        tram2 = hanoi_df[hanoi_df['Index'] == str(pair[1])].iloc[0]
-        folium.PolyLine(
-            locations=[[tram1['Latitude'], tram1['Longitude']], [tram2['Latitude'], tram2['Longitude']]],
-            color='blue'
-        ).add_to(my_map)
-
-    return my_map
-
+    return fig
 
 def app():
-    st.title('Heatmap of Hanoi')
-    while True:
-        print("Update !!!")
-        # Update data_web
-        hanoi_df['PM2.5'] = np.random.uniform(0, 50, 184)
-        hanoi_df['BaoDong'] = np.random.choice([0, 1], 184)
+    st.title('Heatmap of China')
+    start_time = datetime(2018, 1, 1)
+    j = 1
+    date_placehoder = st.empty()
+    text_placeholder = st.empty()
+    map_placeholder = st.empty()
+
+    date_placehoder_label = st.empty()
+    text_placeholder_label = st.empty()
+    map_placeholder_label = st.empty()
+    for i in range(25):
+        print(f"Update {i} !!!")
+        hanoi_df['PM2.5'] = predict_result[j, i]
+        hanoi_df['BaoDong'] = smaller_than(predict_result[j, i] / 75)
+
+        hanoi_label_df['PM2.5'] = label[j, i]
+        hanoi_label_df['BaoDong'] = smaller_than(label[j, i] / 75)
 
         # Create map
         my_map = create_map(hanoi_df)
+        my_map_label = create_map(hanoi_label_df)
         print("Tạo xong bản đồ !!!")
 
-        # Display map
-        folium_static(my_map)
+        with map_placeholder.container():
+            date_placehoder.write(f'{start_time}')
+            text_placeholder.write(f'(Dự báo) Trạng thái thứ {i}')
+            map_placeholder.plotly_chart(my_map)
 
+        with map_placeholder_label.container():
+            date_placehoder_label.write(f'{start_time}')
+            text_placeholder_label.write(f'(Thực tế) Trạng thái thứ {i}')
+            map_placeholder_label.plotly_chart(my_map_label)
+
+        start_time = start_time + timedelta(hours=1)
         # Wait for 10 seconds
-        time.sleep(10)
-
-def app2():
-    st.title('Heatmap of Hanoi')
-    print("Update !!!")
-    # Create map
-    my_map = create_map(hanoi_df)
-    print("Tạo xong bản đồ !!!")
-
-    # Display map
-    folium_static(my_map)
-
-    if st.button('Update'):
-        hanoi_df['PM2.5'] = np.random.uniform(0, 50, 184)
-        hanoi_df['BaoDong'] = np.random.choice([0, 1], 184)
-
+        time.sleep(5)
 
 if __name__ == '__main__':
-    app2()
+    app()
