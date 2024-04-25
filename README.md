@@ -17,7 +17,7 @@ khu vực khác nhau dưới tác động của gió.
 
 Dự án này sử dụng một mô hình tương tự T-GCN, tuy nhiên, ở phần GCN, chúng tôi cải thiện nó thay thế bằng mô hình đề xuất của chúng tôi là PM2.5-GNN
 
-![alt](/image%20cap%20màn/slide_image/Đồ%20thị%20dự%20báo%20không%20gian%20và%20thời%20gian..png)
+![alt](/image/Đồ%20thị%20dự%20báo%20không%20gian%20và%20thời%20gian..png)
 
 ### Dữ liệu
 
@@ -57,7 +57,7 @@ Các mẫu dữ liệu sẽ lấy 1 giờ đầu tiên làm đầu vào dự đo
 #### Biều đồ biến động 
 (Lưu ý: Do có sự nhầm lẫn đánh máy nên đường màu xanh là đường Predict và đường màu đỏ là đường Ground truth)
 
-![alt](image%20cap%20màn/result/gif/giff.gif)
+![alt](image/giff.gif)
 
 ### Trực quan kết quả
 
