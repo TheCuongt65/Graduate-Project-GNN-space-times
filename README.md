@@ -1,4 +1,4 @@
-# Ứng dụng mạng nơ-ron đồ thì trong dự báo chất lượng không khí theo không gian và thời gian
+# Ứng dụng mạng nơ-ron đồ thị trong dự báo chất lượng không khí theo không gian và thời gian
 
 ## Tóm tắt
 
@@ -15,7 +15,7 @@ khu vực khác nhau dưới tác động của gió.
 
 ## Tổng quan phương pháp
 
-Tôi sử dụng một mô hình tương tự T-GCN, tuy nhiên, ở phần GCN, chúng tôi cải thiện nó thay thế bằng mô hình đề xuất của chúng tôi là PM2.5-GNN
+Dự án này sử dụng một mô hình tương tự T-GCN, tuy nhiên, ở phần GCN, chúng tôi cải thiện nó thay thế bằng mô hình đề xuất của chúng tôi là PM2.5-GNN
 
 ![alt](/image%20cap%20màn/slide_image/Đồ%20thị%20dự%20báo%20không%20gian%20và%20thời%20gian..png)
 
@@ -71,5 +71,6 @@ Các mẫu dữ liệu sẽ lấy 1 giờ đầu tiên làm đầu vào dự đo
     * Cài đặt các phụ thuộc bằng lệnh pip install requirements.txt
     * cd vào web, chạy lệnh streamlit run app.py
 
-# Link Báo Cáo
-https://www.overleaf.com/project/65b93cda7a10b2e352072507
+# Các nguồn tham khảo
+
+# Thực hiện
