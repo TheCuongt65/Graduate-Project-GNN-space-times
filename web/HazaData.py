@@ -12,7 +12,7 @@ from datetime import datetime
 
 import yaml
 
-with open("../cli/config.yaml", 'r') as f:
+with open("/config.yaml", 'r') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 
