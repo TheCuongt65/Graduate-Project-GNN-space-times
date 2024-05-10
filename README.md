@@ -66,6 +66,11 @@ _**Kịch bản 3**_
 
 ### Trực quan kết quả
 
+Bạn có thể xem trực tiếp kết quả được trực quan [ở đây](https://graduate-project-gnn-space-times-9wstzhepuperpicstqhwun.streamlit.app/).
+
+![img_1.png](img_1.png)
+
+Đây là video kết quả, tua nhanh để thấy được rõ sự biến động
 
 [![Watch the video](https://img.youtube.com/vi/yf3dzKN2ecI/maxresdefault.jpg)](https://youtu.be/yf3dzKN2ecI)
 
@@ -93,3 +98,5 @@ _**Kịch bản 3**_
 [Self-supervised air quality estimation with graph neural network assistance and attention enhancement](https://www.researchgate.net/publication/379479025_Self-supervised_air_quality_estimation_with_graph_neural_network_assistance_and_attention_enhancement)
 
 # Thực hiện
+
+Le The Cuong
