@@ -68,7 +68,7 @@ _**Kịch bản 3**_
 
 Bạn có thể xem trực tiếp kết quả được trực quan [ở đây](https://graduate-project-gnn-space-times-9wstzhepuperpicstqhwun.streamlit.app/).
 
-![img_1.png](img_1.png)
+![img_1.png](image/img_1.png)
 
 Đây là video kết quả, tua nhanh để thấy được rõ sự biến động
 
