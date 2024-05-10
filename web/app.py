@@ -18,13 +18,13 @@ number = st.number_input("Nhập kịch bản thử nghiệm (1 ,2 hoặc 3): ",
 
 
 if number == 1:
-    predict_result = np.load('data_web/predict.npy')
+    predict_result = np.load('web/data_web/predict.npy')
     predict_result = predict_result.reshape(2880, 25, 184)
 elif number == 2:
-    predict_result = np.load('data_web/predict2.npy')
+    predict_result = np.load('web/data_web/predict2.npy')
     predict_result = predict_result.reshape(predict_result.shape[0], 25, 184)
 else:
-    predict_result = np.load('data_web/predict3.npy')
+    predict_result = np.load('web/data_web/predict3.npy')
     predict_result = predict_result.reshape(predict_result.shape[0], 25, 184)
 ############
 json_data = get_json_data()
@@ -53,13 +53,13 @@ print("Load xong Thông tin về trạm")
 ############
 
 if number == 1:
-    label = np.load('data_web/label.npy')
+    label = np.load('web/data_web/label.npy')
     label = predict_result.reshape(2880, 25, 184)
 elif number == 2:
-    label = np.load('data_web/label2.npy')
+    label = np.load('web/data_web/label2.npy')
     label = predict_result.reshape(predict_result.shape[0], 25, 184)
 else:
-    label = np.load('data_web/label3.npy')
+    label = np.load('web/data_web/label3.npy')
     label = predict_result.reshape(predict_result.shape[0], 25, 184)
 
 json_data = get_json_data()

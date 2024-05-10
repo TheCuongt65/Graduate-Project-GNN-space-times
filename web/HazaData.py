@@ -40,7 +40,7 @@ class HazeData(data.Dataset):
         self.data_start = self._get_time(config['dataset']['data_start'])
         self.data_end = self._get_time(config['dataset']['data_end'])
 
-        self.knowair_fp = "../data_web/KnowAir.npy" # file_dir['knowair_fp']
+        self.knowair_fp = "web/data_web/KnowAir.npy" # file_dir['knowair_fp']
 
         self.graph = graph
         self._load_npy()
