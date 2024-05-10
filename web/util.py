@@ -22,7 +22,7 @@ def get_index_pairs():
     return index_pairs
 
 def get_json_data():
-    with open('../data/city.txt') as file:
+    with open('web/data_web/city.txt') as file:
         data = file.read()
 
     df = pd.DataFrame([line.split() for line in data.split('\n') if line],
