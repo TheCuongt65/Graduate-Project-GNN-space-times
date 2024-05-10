@@ -43,7 +43,6 @@ class HazeData(data.Dataset):
         self.knowair_fp = "../data_web/KnowAir.npy" # file_dir['knowair_fp']
 
         self.graph = graph
-
         self._load_npy()
         self._gen_time_arr()
         self._process_time()
