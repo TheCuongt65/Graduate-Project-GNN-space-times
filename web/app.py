@@ -54,13 +54,13 @@ print("Load xong Thông tin về trạm")
 
 if number == 1:
     label = np.load('data_web/label.npy')
-    label = predict_result.reshape(2880, 25, 184)
+    label = label.reshape(2880, 25, 184)
 elif number == 2:
     label = np.load('data_web/label2.npy')
-    label = predict_result.reshape(predict_result.shape[0], 25, 184)
+    label = label.reshape(label.shape[0], 25, 184)
 else:
     label = np.load('data_web/label3.npy')
-    label = predict_result.reshape(predict_result.shape[0], 25, 184)
+    label = label.reshape(label.shape[0], 25, 184)
 
 json_data = get_json_data()
 
